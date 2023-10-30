@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+var cors = require('cors')
 const PORT = process.env.PORT || 3000;
 
 const taskController = require('./controllers/task.controller'); // Import the controller
 
 app.use(bodyParser.json());
+app.use(cors())
 
 // Define your routes for CRUD operations using the controller functions
 

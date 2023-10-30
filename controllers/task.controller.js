@@ -1,7 +1,7 @@
 // controllers/taskController.js
 
 // In-memory task data
-let tasks = [];
+let tasks = [{title: 'todo', description: 'new task'}];
 
 // Create a new task
 const createTask = (req, res) => {
