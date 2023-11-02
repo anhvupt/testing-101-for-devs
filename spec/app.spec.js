@@ -5,7 +5,7 @@ const taskController = require('../controllers/task.controller');
 describe('Task Controller', () => {
   it('should create a new task', (done) => {
     request(app)
-      .post('/tasks')
+      .post('/api/tasks')
       .send({ id: '1', title: 'Test Task', description: 'This is a test task' })
       .expect(201)
       .end((err, res) => {
@@ -16,7 +16,7 @@ describe('Task Controller', () => {
 
   it('should get all tasks', (done) => {
     request(app)
-      .get('/tasks')
+      .get('/api/tasks')
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);

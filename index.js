@@ -11,11 +11,11 @@ app.use(cors())
 
 // Define your routes for CRUD operations using the controller functions
 
-app.post('/tasks', taskController.createTask);
-app.get('/tasks', taskController.getAllTasks);
-app.get('/tasks/:taskId', taskController.getTaskById);
-app.put('/tasks/:taskId', taskController.updateTaskById);
-app.delete('/tasks/:taskId', taskController.deleteTaskById);
+app.post('/api/tasks', taskController.createTask);
+app.get('/api/tasks', taskController.getAllTasks);
+app.get('/api/tasks/:id', taskController.getTaskById);
+app.put('/api/tasks/:id', taskController.updateTaskById);
+app.delete('/api/tasks/:id', taskController.deleteTaskById);
 
 // Start the server
 app.listen(PORT, () => {

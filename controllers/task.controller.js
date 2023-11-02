@@ -1,24 +1,39 @@
 // controllers/taskController.js
 
 // In-memory task data
-let tasks = [{title: 'todo', description: 'new task'}];
+let tasks = [{id: Date.now(), title: 'todo', description: 'new task'}];
 
-// Create a new task
+// Create a new task with ID assigned by the current timestamp
 const createTask = (req, res) => {
     const newTask = req.body;
+    newTask.id = Date.now(); // Assign the ID using the current timestamp
     tasks.push(newTask);
     res.status(201).json(newTask);
 };
 
+// Update a task by ID using the ID from the URL
+const updateTaskById = (req, res) => {
+    const id = req.params.id; // Get the task ID from the URL
+    const updatedTask = req.body;
+    const index = tasks.findIndex((t) => t.id == id);
+
+    if (index !== -1) {
+        tasks[index] = { ...tasks[index], ...updatedTask };
+        res.status(200).json(tasks[index]);
+    } else {
+        res.status(404).json({ message: 'Task not found' });
+    }
+};
+
 // Read all tasks
 const getAllTasks = (req, res) => {
-    res.status(200).json(tasks);
+    res.status(200).json([...tasks]);
 };
 
 // Read a specific task by ID
 const getTaskById = (req, res) => {
-    const taskId = req.params.taskId;
-    const task = tasks.find((t) => t.id === taskId);
+    const id = req.params.id;
+    const task = tasks.find((t) => t.id == id);
 
     if (task) {
         res.status(200).json(task);
@@ -27,24 +42,10 @@ const getTaskById = (req, res) => {
     }
 };
 
-// Update a task by ID
-const updateTaskById = (req, res) => {
-    const taskId = req.params.taskId;
-    const updatedTask = req.body;
-    const index = tasks.findIndex((t) => t.id === taskId);
-
-    if (index !== -1) {
-        tasks[index] = updatedTask;
-        res.status(200).json(updatedTask);
-    } else {
-        res.status(404).json({ message: 'Task not found' });
-    }
-};
-
 // Delete a task by ID
 const deleteTaskById = (req, res) => {
-    const taskId = req.params.taskId;
-    const index = tasks.findIndex((t) => t.id === taskId);
+    const id = req.params.id;
+    const index = tasks.findIndex((t) => t.id == id);
 
     if (index !== -1) {
         tasks.splice(index, 1);
